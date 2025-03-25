@@ -1,0 +1,70 @@
+/* Celebration styles */
+.confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 20px;
+    background: #ff4040;
+    opacity: 0.8;
+    animation: fall 5s linear infinite;
+}
+
+.confetti-piece:nth-child(odd) {
+    background: #4b2e5a;
+}
+
+.confetti-piece:nth-child(3n) {
+    background: #f0e6ff;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.celebration-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(13, 13, 26, 0.9);
+    border: 2px solid #ff4040;
+    padding: 20px;
+    box-shadow: 0 0 20px #4b2e5a;
+    z-index: 6;
+    color: #f0e6ff;
+    font-family: 'Texturina', serif;
+    font-size: 2em;
+    text-shadow: 0 0 5px #1e2a44;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 20px #ff4040;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 0 30px #ff4040;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 20px #ff4040;
+    }
+}

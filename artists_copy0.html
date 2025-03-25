@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulCasket Records - Artists</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url(anne.png), auto !important; /* Updated cursor to anne.png */
+        }
+
+        body {
+            background-image: url("dolphin-tile-seamless.jpg");
+            background-repeat: repeat;
+            background-size: auto;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            text-align: center;
+            min-height: 100vh;
+            padding: 30px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("https://i.gifer.com/origin/5b/5b6e3d56e5d0f8b4d8e6e8f8b8e6e8f8.gif") repeat;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                rgba(0, 0, 0, 0.1) 0,
+                rgba(0, 0, 0, 0.1) 2px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0.5;
+        }
+
+        .bat {
+            position: fixed;
+            font-size: 2em;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+            z-index: 4;
+            animation: fly-across 10s infinite linear;
+        }
+
+        .bat:nth-child(1) { top: 10%; animation-delay: 0s; }
+        .bat:nth-child(2) { top: 30%; animation-delay: 2s; }
+        .bat:nth-child(3) { top: 50%; animation-delay: 4s; }
+        .bat:nth-child(4) { top: 70%; animation-delay: 6s; }
+
+        .back-link {
+            margin: 20px 0;
+            position: relative;
+            z-index: 5;
+        }
+
+        .back-link a {
+            color: #00ff00;
+            font-size: 1.5em;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 2px solid #ff00ff;
+            background: #000;
+            text-shadow: 0 0 5px #ff00ff;
+            transition: background 0.3s, color 0.3s;
+            animation: color-flash 1s infinite;
+        }
+
+        .back-link a:hover {
+            background: #ff00ff;
+            color: #000;
+            text-shadow: none;
+        }
+
+        .artists-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 25px;
+            background: #000;
+            border: 4px double #00ffff;
+            box-shadow: 0 0 15px #00ffff, inset 0 0 5px #ff00ff;
+            position: relative;
+            z-index: 5;
+        }
+
+        .artists-section h2 {
+            font-size: 2.5em;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+            margin-bottom: 20px;
+            border-bottom: 2px dotted #ff00ff;
+            padding-bottom: 10px;
+            animation: glitch 0.3s infinite;
+        }
+
+        .artists-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .artist-widget {
+            width: 350px;
+            height: 350px;
+            padding: 15px;
+            background: #111;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+            position: relative;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .artist-widget:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ff00ff;
+        }
+
+        .artist-widget h3 {
+            font-size: 1.3em;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+            margin-bottom: 10px;
+            animation: glitch 0.5s infinite;
+            text-align: center;
+        }
+
+        .artist-image {
+            width: 100%;
+            height: 120px;
+            border: 2px solid #ff0000;
+            margin-bottom: 10px;
+            image-rendering: pixelated;
+            animation: color-flash 2s infinite;
+            overflow: hidden;
+        }
+
+        .artist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .artist-description {
+            font-size: 0.9em;
+            color: #ff00ff;
+            text-shadow: 0 0 5px #ff00ff;
+            margin-bottom: 10px;
+            animation: blink 1.5s infinite step-end;
+            text-align: center;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .artist-genre {
+            font-size: 0.9em;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .artist-merch-link {
+            display: inline-block;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 2px solid #ff00ff;
+            background: #000;
+            transition: background 0.3s, color 0.3s;
+            animation: color-flash 1s infinite;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .artist-merch-link:hover {
+            background: #ff00ff;
+            color: #000;
+            text-shadow: none;
+        }
+
+        .artist-bat {
+            position: absolute;
+            font-size: 1.2em;
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000;
+            animation: bat-fly 3s infinite linear;
+        }
+
+        @media (max-width: 600px) {
+            .artist-widget {
+                width: 100%;
+                height: 350px;
+            }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes bat-fly {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-10px); }
+            50% { transform: translateX(0) translateY(0); }
+            75% { transform: translateX(-10px) translateY(10px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        @keyframes fly-across {
+            0% { transform: translateX(-100vw); }
+            100% { transform: translateX(100vw); }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, 0); }
+            80% { transform: translate(2px, 0); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes color-flash {
+            0% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+            33% { border-color: #ff00ff; box-shadow: 0 0 15px #ff00ff; }
+            66% { border-color: #ff0000; box-shadow: 0 0 15px #ff0000; }
+            100% { border-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    <div class="noise-overlay"></div>
+    <div class="crt-overlay"></div>
+    <div class="bat">🦇</div>
+    <div class="bat">🦇</div>
+    <div class="bat">🦇</div>
+    <div class="bat">🦇</div>
+
+    <a href="https://www.cursors-4u.com/cursor/2006/02/20/peo158.html" target="_blank" title="United States President - Bush, George W."><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="United States President - Bush, George W." style="position:absolute; top: 0px; right: 0px;" /></a>
+
+    <div class="back-link">
+        <a href="index.html">Back to Home</a>
+    </div>
+
+    <section id="artists" class="artists-section">
+        <h2>Our Artists</h2>
+        <div class="artists-grid">
+            <div class="artist-widget">
+                <h3>Bell Witch</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/bellwitchbanner.png" alt="Bell Witch Banner">
+                </div>
+                <p class="artist-description">A haunting duo from the misty forests of the Pacific Northwest, Bell Witch weaves sorrowful tales of loss and despair through their crushing soundscapes.</p>
+                <p class="artist-genre">Genre: Funeral Doom Metal</p>
+                <a href="merch.html?artist=bellwitch" class="artist-merch-link">Check out Bell Witch’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Daevar</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/daevarbanner.jpg" alt="Daevar Banner">
+                </div>
+                <p class="artist-description">Emerging from the shadows of ancient ruins, Daevar summons hypnotic riffs that echo the delirium of forgotten rites.</p>
+                <p class="artist-genre">Genre: Stoner Doom</p>
+                <a href="merch.html?artist=daevar" class="artist-merch-link">Check out Daevar’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Horde</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/hordebanner.jpg" alt="Horde Banner">
+                </div>
+                <p class="artist-description">A lone warrior of the frozen north, Horde unleashes raw, unholy black metal that chills the soul with its icy ferocity.</p>
+                <p class="artist-genre">Genre: Black Metal</p>
+                <a href="merch.html?artist=horde" class="artist-merch-link">Check out Horde’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Mournful Congregation</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/mournfulcongregationbanner.jpg" alt="Mournful Congregation Banner">
+                </div>
+                <p class="artist-description">From the depths of despair, Mournful Congregation crafts slow, mournful hymns that resonate with the weight of eternal sorrow.</p>
+                <p class="artist-genre">Genre: Funeral Doom Metal</p>
+                <a href="merch.html?artist=mournfulcongregation" class="artist-merch-link">Check out Mournful Congregation’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Hell</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/hellbanner.jpg" alt="Hell Banner">
+                </div>
+                <p class="artist-description">Rising from the fiery pits, Hell delivers a self-titled onslaught of occult doom that summons the spirits of the damned.</p>
+                <p class="artist-genre">Genre: Occult Doom Metal</p>
+                <a href="merch.html?artist=hell" class="artist-merch-link">Check out Hell’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Nazgul</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/nazgulbanner.jpg" alt="Nazgul Banner">
+                </div>
+                <p class="artist-description">Named after the dark riders of Middle-earth, Nazgul conjures medieval black metal with an elven twist, steeped in ancient lore.</p>
+                <p class="artist-genre">Genre: Medieval Black Metal</p>
+                <a href="merch.html?artist=nazgul" class="artist-merch-link">Check out Nazgul’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Profetus</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/profetusbanner.jpg" alt="Profetus Banner">
+                </div>
+                <p class="artist-description">A Finnish collective, Profetus channels the sadness of time passing through their glacial, melancholic doom metal soundscapes.</p>
+                <p class="artist-genre">Genre: Funeral Doom Metal</p>
+                <a href="merch.html?artist=profetus" class="artist-merch-link">Check out Profetus’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Thergothon</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/thergothonbanner.jpg" alt="Thergothon Banner">
+                </div>
+                <p class="artist-description">Pioneers of funeral doom, Thergothon’s streams from the heavens bring forth a cosmic sorrow that transcends the mortal realm.</p>
+                <p class="artist-genre">Genre: Funeral Doom Metal</p>
+                <a href="merch.html?artist=thergothon" class="artist-merch-link">Check out Thergothon’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Electric Wizard</h3>
+                <div class="artist-image">
+                    <img src="ARTIST_IMAGES/electricwizardbanner.png" alt="Electric Wizard Banner">
+                </div>
+                <p class="artist-description">Also known as the heaviest band in the universe, Electric Wizard are an English stoner/doom metal band from Dorset. With The The Most Heavy Riffs Ever concocted</p>
+                <p class="artist-genre">Genre: Stoner Metal</p>
+                <a href="merch.html?artist=dopethrone" class="artist-merch-link">Check out Dopethrone’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Schizogram</h3>
+                <div class="artist-image"></div>
+                <p class="artist-description">A chaotic entity, Schizogram’s Arabic Dog Fight sound is a frenzied mix of grindcore and experimental noise.</p>
+                <p class="artist-genre">Genre: Grindcore/Noise</p>
+                <a href="merch.html?artist=schizogram" class="artist-merch-link">Check out Schizogram’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Yung Grape</h3>
+                <div class="artist-image"></div>
+                <p class="artist-description">A mysterious figure, Yung Grape blends lo-fi hip-hop with dark, gothic undertones, creating a vibe that’s both chill and eerie.</p>
+                <p class="artist-genre">Genre: Gothic Hip-Hop</p>
+                <a href="merch.html?artist=yunggrape" class="artist-merch-link">Check out Yung Grape’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+            <div class="artist-widget">
+                <h3>Festerphlegmfecespus</h3>
+                <div class="artist-image"></div>
+                <p class="artist-description">A grotesque abomination, Festerphlegmfecespus spews forth the most vile and putrid goregrind ever recorded.</p>
+                <p class="artist-genre">Genre: Goregrind</p>
+                <a href="merch.html?artist=festerphlegmfecespus" class="artist-merch-link">Check out Festerphlegmfecespus’s merch!</a>
+                <span class="artist-bat"></span>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

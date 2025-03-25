@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Casket Records - The Music Shop!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Add the celebration.css stylesheet for the celebration effects -->
+    <link rel="stylesheet" href="assets/celebration/celebration.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url(anne.png), auto !important;
+        }
+
+        body {
+            background: url('castle.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0d0d1a;
+            font-family: 'Texturina', serif;
+            color: #f0e6ff;
+            text-align: center;
+            min-height: 100vh;
+            padding: 30px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 26, 0.8), rgba(75, 46, 90, 0.6));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .moon-glow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4b2e5a 20%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #4b2e5a, 0 0 80px rgba(75, 46, 90, 0.8);
+            z-index: 3;
+        }
+
+        .banner-wrapper {
+            margin: 30px auto;
+            max-width: 90%;
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            padding: 15px;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+            transition: transform 0.3s;
+        }
+
+        .banner-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .banner-link {
+            display: block;
+        }
+
+        .banner {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #8b0000;
+            box-shadow: 0 0 10px #4b2e5a;
+        }
+
+        .marquee {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            color: #ff4040;
+            text-shadow: 0 0 5px #4b2e5a;
+            font-size: 1.2em;
+            position: relative;
+            z-index: 4;
+        }
+
+        .section-wrapper {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 25px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+        }
+
+        .retro-title {
+            font-family: 'Texturina', serif;
+            font-size: 3em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 20px;
+        }
+
+        .subheading {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin: 20px 0;
+            border-top: 2px dotted #8b0000;
+            border-bottom: 2px dotted #8b0000;
+            padding: 10px 0;
+        }
+
+        .nav-menu {
+            position: relative;
+            z-index: 4;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Reduced from 20px to 15px to save space */
+            flex-wrap: nowrap; /* Prevent wrapping on larger screens */
+        }
+
+        .nav-menu ul li {
+            display: inline-block;
+        }
+
+        .nav-menu ul li a.nav-link {
+            font-family: 'Texturina', serif;
+            font-size: 1.3em; /* Reduced from 1.5em to 1.3em to make buttons narrower */
+            color: #f0e6ff;
+            text-decoration: none;
+            padding: 8px 15px; /* Reduced from 10px 20px to 8px 15px */
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            box-shadow: 0 0 10px #1e2a44;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-menu ul li a.nav-link:hover {
+            background: #8b0000;
+            color: #f0e6ff;
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .nav-menu ul {
+                flex-wrap: wrap; /* Allow wrapping on smaller screens */
+                gap: 10px; /* Further reduce gap on smaller screens */
+            }
+
+            .nav-menu ul li a.nav-link {
+                font-size: 1.2em; /* Slightly smaller font size on mobile */
+                padding: 6px 12px; /* Further reduce padding on mobile */
+            }
+        }
+
+        .gothic-divider {
+            margin: 40px 0;
+            font-size: 2em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            position: relative;
+            z-index: 4;
+        }
+
+        .video-container {
+            margin: 50px auto;
+            padding: 15px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            display: inline-block;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+        }
+
+        .video-container iframe {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #8b0000;
+            box-shadow: 0 0 10px #4b2e5a;
+        }
+
+        .clock-container {
+            margin: 50px auto;
+            padding: 15px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            display: inline-block;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+        }
+
+        .clock-container iframe {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #8b0000;
+        }
+
+        .spinning-gif {
+            margin: 50px auto;
+            padding: 15px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            display: inline-block;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+        }
+
+        .spinning-gif img {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #8b0000;
+            box-shadow: 0 0 10px #4b2e5a;
+        }
+
+        .tos-footer {
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+        }
+
+        .tos-footer h2 {
+            font-family: 'Texturina', serif;
+            font-size: 2em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 20px;
+            border-bottom: 2px dotted #8b0000;
+            padding-bottom: 10px;
+        }
+
+        .tos-footer p {
+            font-family: 'Texturina', serif;
+            font-size: 1em;
+            margin: 15px 0;
+        }
+
+        .tos-footer h3 {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin: 20px 0 10px;
+            border-top: 2px dotted #8b0000;
+            padding-top: 10px;
+        }
+
+        .tos-footer table {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            box-shadow: 0 0 10px #1e2a44;
+        }
+
+        .tos-footer th, .tos-footer td {
+            padding: 10px;
+            border: 1px solid #f0e6ff;
+            font-family: 'Texturina', serif;
+            font-size: 0.9em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+        }
+
+        .tos-footer th {
+            background: #1e2a44;
+            color: #ff4040;
+            text-shadow: 0 0 5px #4b2e5a;
+        }
+
+        @media (max-width: 600px) {
+            .tos-footer table, .tos-footer th, .tos-footer td {
+                font-size: 0.8em;
+                padding: 5px;
+            }
+
+            .video-container iframe {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    <div class="moon-glow"></div>
+
+    <a href="https://www.cursors-4u.com/cursor/2006/02/20/peo158.html" target="_blank" title="United States President - Bush, George W."><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="United States President - Bush, George W." style="position:absolute; top: 0px; right: 0px;" /></a>
+
+    <div class="banner-wrapper">
+        <a href="https://cooltext.com" class="banner-link">
+            <img src="https://images.cooltext.com/5726887.gif" alt="Welcome to Soul Casket Records" class="banner">
+        </a>
+    </div>
+
+    <div class="marquee">
+        <marquee behavior="scroll" direction="left">SHOUT OUT TO MY BEST EMPLOYEES CADEN SMEAD AND DR STROODLE TOODLE</marquee>
+    </div>
+
+    <section id="hero" class="section-wrapper">
+        <h1 class="retro-title">Soul Casket Records</h1>
+        <p class="subheading">Best Merch Store For Underground Merch</p>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="merch.html" class="nav-link">Merch</a></li>
+                <li><a href="artists.html" class="nav-link">Artists</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+                <li><a href="happy-customers.html" class="nav-link">Happy Customers</a></li>
+            </ul>
+        </nav>
+    </section>
+
+    <div class="gothic-divider"></div>
+
+    <div class="video-container">
+        <iframe 
+            width="400" 
+            height="200" 
+            src="https://www.youtube.com/embed/1Onr4z2fdDM?autoplay=1&mute=1" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; autoplay" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <div class="clock-container">
+        <iframe 
+            scrolling="no" 
+            frameborder="no" 
+            clocktype="html5" 
+            style="overflow:hidden;border:0;margin:0;padding:0;width:227px;height:75px;" 
+            src="https://www.clocklink.com/html5embed.php?clock=008&timezone=USA_SanAntonio&color=pink&size=227&Title=&Message=&Target=&From=2025,1,1,0,0,0&Color=pink">
+        </iframe>
+    </div>
+
+    <div class="spinning-gif">
+        <img src="SpinningGL2.gif" alt="Spinning CD">
+    </div>
+
+    <footer class="tos-footer">
+        <h2>Terms of Service</h2>
+        <p>Disclaimer: All shirts sold by Soul Casket Records are unofficially licensed. All rights are reserved to the respective artists.</p>
+        <p>Shirt Details: All shirts are 100% cotton and are Direct-to-Garment (DTG) printed for high-quality, vibrant designs.</p>
+        <p>Notice: Soul Casket Records is not an actual record label. This is a purely cosmetic project for entertainment purposes.</p>
+        <p>Bands Signed To Soul Casket Records: Festerphlegmfecespus, yung grape OG and schizogram</p>
+
+        <h3>Shipping Rates - Short Sleeves (T-Shirts & Tank Tops)</h3>
+        <table>
+            <tr>
+                <th>Country</th>
+                <th>Shipping Method</th>
+                <th>Shipping Time</th>
+                <th>First Item</th>
+                <th>Additional Item</th>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 4.96</td>
+                <td>USD 2.44</td>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 11.28</td>
+                <td>USD 3.41</td>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Express shipping</td>
+                <td>3 - 5 business days</td>
+                <td>USD 29.17</td>
+                <td>USD 3.97</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 3.97</td>
+                <td>USD 1.45</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Fast shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 6.07</td>
+                <td>USD 2.13</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Express shipping</td>
+                <td>3 - 5 business days</td>
+                <td>USD 10.32</td>
+                <td>USD 2.44</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 4.99</td>
+                <td>USD 1.68</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 6.21</td>
+                <td>USD 2.27</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 24.32</td>
+                <td>USD 2.27</td>
+            </tr>
+            <tr>
+                <td>Australia</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 5.93</td>
+                <td>USD 1.99</td>
+            </tr>
+            <tr>
+                <td>Canada</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 6.21</td>
+                <td>USD 2.27</td>
+            </tr>
+            <tr>
+                <td>Canada</td>
+                <td>Express shipping</td>
+                <td>5 - 7 business days</td>
+                <td>USD 33.46</td>
+                <td>USD 5.11</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 5.39</td>
+                <td>USD 1.76</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 7.17</td>
+                <td>USD 2.13</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 24.32</td>
+                <td>USD 2.27</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 5.22</td>
+                <td>USD 1.59</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 6.54</td>
+                <td>USD 2.13</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 24.32</td>
+                <td>USD 2.27</td>
+            </tr>
+            <tr>
+                <td>Rest of World</td>
+                <td>Standard shipping</td>
+                <td>10 - 30 business days</td>
+                <td>Up to USD 10.92</td>
+                <td>Up to USD 6.98</td>
+            </tr>
+        </table>
+
+        <h3>Shipping Rates - Long Sleeves</h3>
+        <table>
+            <tr>
+                <th>Country</th>
+                <th>Shipping Method</th>
+                <th>Shipping Time</th>
+                <th>First Item</th>
+                <th>Additional Item</th>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 7.78</td>
+                <td>USD 3.26</td>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 12.42</td>
+                <td>USD 4.54</td>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Express shipping</td>
+                <td>3 - 5 business days</td>
+                <td>USD 30.50</td>
+                <td>USD 5.30</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 4.45</td>
+                <td>USD 1.93</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Fast shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 6.78</td>
+                <td>USD 2.84</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Express shipping</td>
+                <td>3 - 5 business days</td>
+                <td>USD 11.13</td>
+                <td>USD 3.26</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 5.54</td>
+                <td>USD 2.24</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 6.97</td>
+                <td>USD 3.03</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 25.08</td>
+                <td>USD 3.03</td>
+            </tr>
+            <tr>
+                <td>Australia</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 6.59</td>
+                <td>USD 2.65</td>
+            </tr>
+            <tr>
+                <td>Canada</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 6.97</td>
+                <td>USD 3.03</td>
+            </tr>
+            <tr>
+                <td>Canada</td>
+                <td>Express shipping</td>
+                <td>5 - 7 business days</td>
+                <td>USD 35.16</td>
+                <td>USD 6.81</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 5.97</td>
+                <td>USD 2.35</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 7.88</td>
+                <td>USD 2.84</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 25.08</td>
+                <td>USD 3.03</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 5.74</td>
+                <td>USD 2.12</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 7.25</td>
+                <td>USD 2.84</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 25.08</td>
+                <td>USD 3.03</td>
+            </tr>
+            <tr>
+                <td>Rest of World</td>
+                <td>Standard shipping</td>
+                <td>10 - 30 business days</td>
+                <td>Up to USD 12.24</td>
+                <td>Up to USD 9.30</td>
+            </tr>
+        </table>
+
+        <h3>Shipping Rates - Hoodies, Sweatshirts, and Pants</h3>
+        <table>
+            <tr>
+                <th>Country</th>
+                <th>Shipping Method</th>
+                <th>Shipping Time</th>
+                <th>First Item</th>
+                <th>Additional Item</th>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 8.99</td>
+                <td>USD 3.37</td>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 16.76</td>
+                <td>USD 8.99</td>
+            </tr>
+            <tr>
+                <td>United States (USA)</td>
+                <td>Express shipping</td>
+                <td>3 - 5 business days</td>
+                <td>USD 35.77</td>
+                <td>USD 10.37</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 6.30</td>
+                <td>USD 3.78</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Fast shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 9.49</td>
+                <td>USD 5.56</td>
+            </tr>
+            <tr>
+                <td>United Kingdom (UK)</td>
+                <td>Express shipping</td>
+                <td>3 - 5 business days</td>
+                <td>USD 14.25</td>
+                <td>USD 6.37</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 7.68</td>
+                <td>USD 3.37</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 9.06</td>
+                <td>USD 5.93</td>
+            </tr>
+            <tr>
+                <td>Germany</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 27.98</td>
+                <td>USD 5.93</td>
+            </tr>
+            <tr>
+                <td>Australia</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 9.12</td>
+                <td>USD 5.19</td>
+            </tr>
+            <tr>
+                <td>Canada</td>
+                <td>Standard shipping</td>
+                <td>7 - 12 business days</td>
+                <td>USD 9.86</td>
+                <td>USD 5.93</td>
+            </tr>
+            <tr>
+                <td>Canada</td>
+                <td>Express shipping</td>
+                <td>5 - 7 business days</td>
+                <td>USD 41.68</td>
+                <td>USD 13.33</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 8.22</td>
+                <td>USD 4.59</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 10.60</td>
+                <td>USD 5.56</td>
+            </tr>
+            <tr>
+                <td>Italy</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 27.98</td>
+                <td>USD 5.93</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Standard shipping</td>
+                <td>6 - 10 business days</td>
+                <td>USD 7.77</td>
+                <td>USD 4.15</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Fast shipping</td>
+                <td>5 - 8 business days</td>
+                <td>USD 9.97</td>
+                <td>USD 5.56</td>
+            </tr>
+            <tr>
+                <td>France</td>
+                <td>Express shipping</td>
+                <td>4 - 7 business days</td>
+                <td>USD 27.98</td>
+                <td>USD 5.93</td>
+            </tr>
+            <tr>
+                <td>Rest of World</td>
+                <td>Standard shipping</td>
+                <td>10 - 30 business days</td>
+                <td>Up to USD 22.15</td>
+                <td>Up to USD 18.22</td>
+            </tr>
+        </table>
+    </footer>
+
+    <audio autoplay loop muted>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+    <!-- Add the celebration.js script to trigger the celebration effects -->
+    <script src="assets/celebration/celebration.js"></script>
+</body>
+</html>

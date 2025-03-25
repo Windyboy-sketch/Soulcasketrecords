@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Casket Records - Merch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url(anne.png), auto !important;
+        }
+
+        body {
+            background: url('castle.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0d0d1a;
+            font-family: 'Texturina', serif;
+            color: #f0e6ff;
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 26, 0.8), rgba(75, 46, 90, 0.6));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .moon-glow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4b2e5a 20%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #4b2e5a, 0 0 80px rgba(75, 46, 90, 0.8);
+            z-index: 3;
+        }
+
+        .nav-menu {
+            margin: 20px 0;
+            position: relative;
+            z-index: 4;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu ul li {
+            display: inline-block;
+        }
+
+        .nav-menu ul li a.nav-link {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            box-shadow: 0 0 10px #1e2a44;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-menu ul li a.nav-link:hover {
+            background: #8b0000;
+            color: #f0e6ff;
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .merch-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            position: relative;
+            z-index: 4;
+        }
+
+        .merch-section h2 {
+            font-family: 'Texturina', serif;
+            font-size: 2.5em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 30px;
+        }
+
+        .merch-category {
+            margin-bottom: 40px;
+        }
+
+        .merch-category h3 {
+            font-family: 'Texturina', serif;
+            font-size: 2em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin-bottom: 20px;
+            border-bottom: 2px dotted #8b0000;
+            padding-bottom: 10px;
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .merch-card {
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            padding: 15px;
+            box-shadow: 0 0 10px #1e2a44;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .merch-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .merch-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #1e2a44;
+            border: 2px solid #8b0000;
+            box-shadow: 0 0 10px #4b2e5a;
+        }
+
+        .merch-image:not([src]) {
+            content: "Image Not Found";
+            color: #ff4040;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+        }
+
+        .merch-label {
+            font-family: 'Texturina', serif;
+            font-size: 1.2em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin: 10px 0;
+        }
+
+        .merch-price {
+            font-family: 'Texturina', serif;
+            font-size: 1em;
+            color: #ff4040;
+            text-shadow: 0 0 5px #4b2e5a;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    <div class="moon-glow"></div>
+
+    <a href="https://www.cursors-4u.com/cursor/2006/02/20/peo158.html" target="_blank" title="United States President - Bush, George W."><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="United States President - Bush, George W." style="position:absolute; top: 0px; right: 0px;" /></a>
+
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="artists.html" class="nav-link">Artists</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+            <li><a href="happy-customers.html" class="nav-link">Happy Customers</a></li>
+        </ul>
+    </nav>
+
+    <section class="merch-section">
+        <h2>Our Merch</h2>
+
+        <!-- Long Sleeves Section -->
+        <div class="merch-category" id="longsleeves">
+            <h3>Long Sleeves</h3>
+            <div class="merch-grid">
+                <!-- Bell Witch -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1885570273/bell-witch-the-longing-cuffed-ls" target="_blank">
+                        <img src="SHIRT_PNGS/BellWitchLongSleeveCuffed.png" alt="Bell Witch The Longing Cuffed LS" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Bell Witch The Longing (Cuffed) LS</div>
+                        <div class="merch-price">$50.68 - $51.82</div>
+                    </a>
+                </div>
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1885570187/bell-witch-the-longing-ls" target="_blank">
+                        <img src="SHIRT_PNGS/bellwitchls.png" alt="Bell Witch The Longing LS Non-Cuffed" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Bell Witch The Longing LS (Non-Cuffed)</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Daevar -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1869825904/daevar-delirious-rites-ls" target="_blank">
+                        <img src="SHIRT_PNGS/daevarlongsleeve.png" alt="Daevar Delirious Rites LS" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Daevar Delirious Rites L/S</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Dopethrone -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1891818331/dopethrone-long-sleeve-electric-wizard" target="_blank">
+                        <img src="SHIRT_PNGS/dopethronelongsleeve.png" alt="Dopethrone Long Sleeve Electric Wizard" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Dopethrone Long Sleeve (Electric Wizard)</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Hell -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1874392672/hell-self-title-long-sleeve" target="_blank">
+                        <img src="SHIRT_PNGS/helllongsleeve.png" alt="Hell Self Title Long Sleeve" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Hell Self Title Long Sleeve</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Horde -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1869825996/horde-hellig-usvalt-ls" target="_blank">
+                        <img src="SHIRT_PNGS/helligusvaltlongsleeve.png" alt="Horde Hellig Usvalt LS" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Horde Hellig Usvalt LS</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Lifelover -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1893200779/lifelover-pulver-ls" target="_blank">
+                        <img src="SHIRT_PNGS/lifeloverls.png" alt="Lifelover Pulver LS" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Lifelover Pulver LS</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Mournful Congregation -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1869826166/mournful-congregation-weeping-demo-ls" target="_blank">
+                        <img src="SHIRT_PNGS/mournfulcongregationlongsleeve.png" alt="Mournful Congregation Weeping Demo LS" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Mournful Congregation Weeping Demo LS</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Nazgul -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1863426048/nazul-de-expugnatione-elfmuth-ls" target="_blank">
+                        <img src="SHIRT_PNGS/nazgullongsleeve.png" alt="Nazgul De Expugnatione Elfmuth L/S" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Nazgul De Expugnatione Elfmuth L/S</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Profetus -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1884007441/profetus-sadness-of-time-passing-ls" target="_blank">
+                        <img src="SHIRT_PNGS/profetuslongsleeve.png" alt="Profetus Sadness of Time Passing L/S" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Profetus Sadness of Time Passing L/S</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+                <!-- Thergothon -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1869826504/thergothon-streams-from-the-heavens-ls" target="_blank">
+                        <img src="SHIRT_PNGS/thergothonlongsleeve.png" alt="Thergothon Streams from The Heavens L/S" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Thergothon Streams from The Heavens L/S</div>
+                        <div class="merch-price">$44.38 - $48.00</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- T-Shirts Section -->
+        <div class="merch-category" id="tshirts">
+            <h3>T-Shirts</h3>
+            <div class="merch-grid">
+                <!-- Lifelover -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1879014794/lifelover-pulver-t-shirt" target="_blank">
+                        <img src="SHIRT_PNGS/lifelovertshirt.png" alt="Lifelover Pulver T-Shirt" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Lifelover Pulver T-Shirt</div>
+                        <div class="merch-price">$41.40 - $43.30</div>
+                    </a>
+                </div>
+                <!-- Nazgul -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1863426048/nazul-de-expugnatione-elfmuth-t-shirt" target="_blank">
+                        <img src="SHIRT_PNGS/nazgulshortsleeve.png" alt="Nazgul De Expugnatione Elfmuth T-Shirt" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Nazgul De Expugnatione Elfmuth T-Shirt</div>
+                        <div class="merch-price">$41.40 - $43.30</div>
+                    </a>
+                </div>
+                <!-- Schizogram -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1877621251/schizogram-arabic-dog-fight-t-shirt" target="_blank">
+                        <img src="SHIRT_PNGS/schizogramshortsleeve.png" alt="Schizogram Arabic Dog Fight T-Shirt" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Schizogram Arabic Dog Fight T-Shirt</div>
+                        <div class="merch-price">$41.40 - $43.30</div>
+                    </a>
+                </div>
+                <!-- Thergothon -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1863406060/thergothon-streams-from-the-heavens-t" target="_blank">
+                        <img src="SHIRT_PNGS/thergothonshortsleeve.png" alt="Thergothon Streams from The Heavens T-S" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Thergothon Streams from The Heavens T-S</div>
+                        <div class="merch-price">$41.40 - $43.30</div>
+                    </a>
+                </div>
+                <!-- Yung Grape -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1881097507/yung-grape-t-shirt" target="_blank">
+                        <img src="SHIRT_PNGS/yunggrapeshortsleeve.png" alt="Yung Grape T-Shirt" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Yung Grape T-Shirt</div>
+                        <div class="merch-price">$41.40 - $43.30</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patches Section -->
+        <div class="merch-category" id="patches">
+            <h3>Patches</h3>
+            <div class="merch-grid">
+                <!-- Festerphlegmfecespus -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1871391386/offically-licensed-festerphlegmfecespus" target="_blank">
+                        <img src="SHIRT_PNGS/festerphlegmfecespuspatch.png" alt="Festerphlegmfecespus Patch" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Festerphlegmfecespus Patch</div>
+                        <div class="merch-price">$15.00 - $20.00</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CDs Section -->
+        <div class="merch-category" id="cds">
+            <h3>CDs</h3>
+            <div class="merch-grid">
+                <!-- Saphris (Festerphlegmfecespus) -->
+                <div class="merch-card">
+                    <a href="https://www.etsy.com/listing/1882137049/saphris-festerphlegmfecespus-cd" target="_blank">
+                        <img src="SHIRT_PNGS/saphriscd.png" alt="Saphris Festerphlegmfecespus CD" class="merch-image" onerror="this.style.display='none'">
+                        <div class="merch-label">Saphris - Festerphlegmfecespus CD</div>
+                        <div class="merch-price">$15.00 - $20.00</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

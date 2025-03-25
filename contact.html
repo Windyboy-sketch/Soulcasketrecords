@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Casket Records - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url(anne.png), auto !important;
+        }
+
+        body {
+            background: url('castle.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0d0d1a;
+            font-family: 'Texturina', serif;
+            color: #f0e6ff;
+            text-align: center;
+            min-height: 100vh;
+            padding: 30px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 26, 0.8), rgba(75, 46, 90, 0.6));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .moon-glow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4b2e5a 20%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #4b2e5a, 0 0 80px rgba(75, 46, 90, 0.8);
+            z-index: 3;
+        }
+
+        .back-link {
+            margin: 20px 0;
+            position: relative;
+            z-index: 4;
+        }
+
+        .back-link a {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            box-shadow: 0 0 10px #1e2a44;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .back-link a:hover {
+            background: #8b0000;
+            color: #f0e6ff;
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .contact-section {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 25px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            box-shadow: 0 0 10px #1e2a44;
+            position: relative;
+            z-index: 4;
+        }
+
+        .contact-section h2 {
+            font-family: 'Texturina', serif;
+            font-size: 2.5em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-family: 'Texturina', serif;
+            font-size: 1.2em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin-bottom: 20px;
+        }
+
+        .contact-emails {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            box-shadow: 0 0 10px #1e2a44;
+        }
+
+        .contact-emails h3 {
+            font-family: 'Texturina', serif;
+            font-size: 1.8em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 15px;
+        }
+
+        .contact-emails p {
+            font-family: 'Texturina', serif;
+            font-size: 1.1em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin: 10px 0;
+        }
+
+        .contact-emails a {
+            color: #ff4040;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-emails a:hover {
+            color: #8b0000;
+        }
+
+        .contact-form {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            box-shadow: 0 0 10px #1e2a44;
+        }
+
+        .contact-form h3 {
+            font-family: 'Texturina', serif;
+            font-size: 1.8em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 15px;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form label {
+            font-family: 'Texturina', serif;
+            font-size: 1.1em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            text-align: left;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            font-family: 'Texturina', serif;
+            font-size: 1em;
+            padding: 10px;
+            border: 2px solid #4b2e5a;
+            background: rgba(30, 42, 68, 0.8);
+            color: #f0e6ff;
+            box-shadow: 0 0 5px #1e2a44;
+            resize: vertical;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #8b0000;
+            box-shadow: 0 0 10px #ff4040;
+        }
+
+        .contact-form button {
+            font-family: 'Texturina', serif;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            color: #f0e6ff;
+            box-shadow: 0 0 10px #1e2a44;
+            cursor: url(anne.png), pointer !important;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #8b0000;
+            color: #f0e6ff;
+            box-shadow: 0 0 20px #ff4040;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    <div class="moon-glow"></div>
+
+    <a href="https://www.cursors-4u.com/cursor/2006/02/20/peo158.html" target="_blank" title="United States President - Bush, George W."><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="United States President - Bush, George W." style="position:absolute; top: 0px; right: 0px;" /></a>
+
+    <div class="back-link">
+        <a href="index.html">Back to Home</a>
+    </div>
+
+    <section class="contact-section">
+        <h2>Contact Soul Casket Records</h2>
+        <p>Have a question about our merch, custom orders, artists, or just want to share your thoughts? Reach out to us, and we’ll respond!</p>
+
+        <div class="contact-emails">
+            <h3>Email Us Directly</h3>
+            <p>For general inquiries and custom designs contact me:<br>
+                <a href="mailto:soulcasketmerch@gmail.com">soulcasketmerch@gmail.com</a>
+            </p>
+            <p>For shipping issues or to speak with my fat autistic son, caden:<br>
+                <a href="mailto:greatcadio@gmail.com">greatcadio@gmail.com</a>
+            </p>
+        </div>
+
+        

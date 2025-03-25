@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Casket Records - Happy Customers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url(anne.png), auto !important;
+        }
+
+        body {
+            background: url('castle.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0d0d1a;
+            font-family: 'Texturina', serif;
+            color: #f0e6ff;
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 26, 0.8), rgba(75, 46, 90, 0.6));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .moon-glow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4b2e5a 20%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #4b2e5a, 0 0 80px rgba(75, 46, 90, 0.8);
+            z-index: 3;
+        }
+
+        .nav-menu {
+            margin: 20px 0;
+            position: relative;
+            z-index: 4;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu ul li {
+            display: inline-block;
+        }
+
+        .nav-menu ul li a.nav-link {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            box-shadow: 0 0 10px #1e2a44;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-menu ul li a.nav-link:hover {
+            background: #8b0000;
+            color: #f0e6ff;
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .customers-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            position: relative;
+            z-index: 4;
+        }
+
+        .customers-section h2 {
+            font-family: 'Texturina', serif;
+            font-size: 2.5em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 30px;
+        }
+
+        .customers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .customer-card {
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            padding: 20px;
+            box-shadow: 0 0 10px #1e2a44;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .customer-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .customer-name {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            margin-bottom: 10px;
+        }
+
+        .customer-quote {
+            font-family: 'Texturina', serif;
+            font-size: 1em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .customer-rating {
+            font-family: 'Texturina', serif;
+            font-size: 1em;
+            color: #ff4040;
+            text-shadow: 0 0 5px #4b2e5a;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    <div class="moon-glow"></div>
+
+    <a href="https://www.cursors-4u.com/cursor/2006/02/20/peo158.html" target="_blank" title="United States President - Bush, George W."><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="United States President - Bush, George W." style="position:absolute; top: 0px; right: 0px;" /></a>
+
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="merch.html" class="nav-link">Merch</a></li>
+            <li><a href="artists.html" class="nav-link">Artists</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+        </ul>
+    </nav>
+
+    <section class="customers-section">
+        <h2>Happy Customers</h2>
+        <div class="customers-grid">
+            <!-- Customer 1 -->
+            <div class="customer-card">
+                <div class="customer-name">Cody</div>
+                <div class="customer-quote">"Yo sorry for the late response, I have notifications off for most apps. I got the shirts, they are great! The blank tee quality is so nice! Sorry I havent snagged the Mournful Congregation tee yet, just life and its fucked up expenses has snuck up on me recently but I will snag it soon!
+                    "</div>
+                <div class="customer-rating">★★★★★</div>
+            </div>
+            <!-- Customer 2 -->
+            <div class="customer-card">
+                <div class="customer-name">FTCCD</div>
+                <div class="customer-quote">"Thank you so much for the custom order man. I wanted a shirt of this band for so long, but literally none of them were on sale because it was so underground.
+                    I’ll make sure to promote you, man"</div>
+                <div class="customer-rating">★★★★★</div>
+            </div>
+            <!-- Customer 3 -->
+            <div class="customer-card">
+                <div class="customer-name">N/A</div>
+                <div class="customer-quote">"N/A"</div>
+                <div class="customer-rating">N/A</div>
+            </div>
+            <!-- Customer 4 -->
+            <div class="customer-card">
+                <div class="customer-name">N/A</div>
+                <div class="customer-quote">"N/A"</div>
+                <div class="customer-rating">N/A</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

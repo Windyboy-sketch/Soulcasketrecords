@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Casket Records - Calendar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Texturina:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/celebration/celebration.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url(anne.png), auto !important;
+        }
+
+        body {
+            background: url('castle.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0d0d1a;
+            font-family: 'Texturina', serif;
+            color: #f0e6ff;
+            text-align: center;
+            min-height: 100vh;
+            padding: 30px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .dark-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13, 13, 26, 0.8), rgba(75, 46, 90, 0.6));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .moon-glow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #4b2e5a 20%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 50px #4b2e5a, 0 0 80px rgba(75, 46, 90, 0.8);
+            z-index: 3;
+        }
+
+        .nav-menu {
+            margin: 20px 0;
+            position: relative;
+            z-index: 4;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu ul li {
+            display: inline-block;
+        }
+
+        .nav-menu ul li a.nav-link {
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #4b2e5a;
+            background: rgba(13, 13, 26, 0.9);
+            box-shadow: 0 0 10px #1e2a44;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-menu ul li a.nav-link:hover {
+            background: #8b0000;
+            color: #f0e6ff;
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .calendar-section {
+            max-width: 800px;
+            margin: 50px auto;
+            position: relative;
+            z-index: 4;
+        }
+
+        .calendar-section h2 {
+            font-family: 'Texturina', serif;
+            font-size: 2.5em;
+            color: #ff4040;
+            text-shadow: 0 0 10px #4b2e5a;
+            margin-bottom: 20px;
+        }
+
+        .highlight-widget {
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            padding: 20px;
+            box-shadow: 0 0 20px #ff4040;
+            margin-bottom: 40px;
+        }
+
+        .highlight-widget h3 {
+            font-family: 'Texturina', serif;
+            font-size: 1.8em;
+            color: #ff4040;
+            text-shadow: 0 0 5px #1e2a44;
+            margin-bottom: 10px;
+        }
+
+        .highlight-widget p {
+            font-family: 'Texturina', serif;
+            font-size: 1.2em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+        }
+
+        .calendar-month {
+            margin-bottom: 40px;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #4b2e5a;
+            padding: 20px;
+            box-shadow: 0 0 10px #1e2a44;
+        }
+
+        .calendar-month h3 {
+            font-family: 'Texturina', serif;
+            font-size: 2em;
+            color: #ff4040;
+            text-shadow: 0 0 5px #1e2a44;
+            margin-bottom: 20px;
+        }
+
+        .calendar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .calendar-day {
+            background: rgba(30, 42, 68, 0.8);
+            border: 2px solid #4b2e5a;
+            padding: 15px;
+            box-shadow: 0 0 10px #1e2a44;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .calendar-day:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #ff4040;
+        }
+
+        .calendar-day h4 {
+            font-family: 'Texturina', serif;
+            font-size: 1.3em;
+            color: #ff4040;
+            text-shadow: 0 0 5px #1e2a44;
+            margin-bottom: 5px;
+        }
+
+        .calendar-day p {
+            font-family: 'Texturina', serif;
+            font-size: 1em;
+            color: #f0e6ff;
+            text-shadow: 0 0 5px #1e2a44;
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-overlay"></div>
+    <div class="moon-glow"></div>
+
+    <a href="https://www.cursors-4u.com/cursor/2006/02/20/peo158.html" target="_blank" title="United States President - Bush, George W."><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="United States President - Bush, George W." style="position:absolute; top: 0px; right: 0px;" /></a>
+
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="merch.html" class="nav-link">Merch</a></li>
+            <li><a href="artists.html" class="nav-link">Artists</a></li>
+            <li><a href="calendar.html" class="nav-link">Calendar</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+            <li><a href="happy-customers.html" class="nav-link">Happy Customers</a></li>
+        </ul>
+    </nav>
+
+    <section class="calendar-section">
+        <h2>Dark Calendar of the Casket</h2>
+
+        <div class="highlight-widget" id="today-highlight">
+            <h3 id="today-date"></h3>
+            <p id="today-event"></p>
+        </div>
+
+        <div id="calendar-list">
+            <div class="calendar-month">
+                <h3>January</h3>
+                <div class="calendar-list" id="january-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>February</h3>
+                <div class="calendar-list" id="february-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>March</h3>
+                <div class="calendar-list" id="march-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>April</h3>
+                <div class="calendar-list" id="april-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>May</h3>
+                <div class="calendar-list" id="may-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>June</h3>
+                <div class="calendar-list" id="june-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>July</h3>
+                <div class="calendar-list" id="july-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>August</h3>
+                <div class="calendar-list" id="august-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>September</h3>
+                <div class="calendar-list" id="september-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>October</h3>
+                <div class="calendar-list" id="october-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>November</h3>
+                <div class="calendar-list" id="november-list"></div>
+            </div>
+            <div class="calendar-month">
+                <h3>December</h3>
+                <div class="calendar-list" id="december-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const calendarData = {
+            January: [
+                "New Year’s Day (Welcome to Another Year of Suffering)",
+                "National 'Just Give Up on Those Resolutions' Day",
+                "Annual 'Debt Still Exists' Awareness Day",
+                "Global 'Your Boss is Watching' Paranoia Day",
+                "Dracula’s Molestation Anniversary",
+                "Schizophrenia Solidarity Day (The Voices Said So)",
+                "National 'Your Guardian Angel Quit' Day",
+                "'The Simulation is Lagging' Observation Day",
+                "Annual 'Remember That Guy You Wronged? He’s Plotting' Day",
+                "Mandatory 'Talk to Your Reflection' Day",
+                "Your FBI Agent is Laughing at You Day",
+                "Annual 'Your Parents Regret You' Remembrance Day",
+                "Friday the 13th But it’s a Tuesday and That’s Worse",
+                "International 'You’re Definitely Being Watched' Day",
+                "Your Cat is Judging You But You Kinda Deserve It Day",
+                "Martin Luther King Jr. Had a Dream, But You Had a Nightmare",
+                "Annual 'What if Today is the Day Everything Goes Wrong?' Day",
+                "The Walls are Breathing Celebration",
+                "You’ve Been Here Before and You’ll Be Here Again Awareness Day",
+                "Bossman's Birthday",
+                "Your Toothbrush Has Been in Someone Else’s Mouth Day",
+                "Every Mirror You’ve Ever Looked Into Remembers You Day",
+                "Your Shadow is Delayed and That’s a Bad Sign Day",
+                "Everyone Secretly Hates You and They’re Right Day",
+                "That Noise in the Other Room is Definitely Not the Wind Day",
+                "Your Sleep Paralysis Demon Needs a Raise Day",
+                "Someone Somewhere is Having a Stroke and Doesn’t Know Yet Day",
+                "The Void is Calling and It Knows Your Name Day",
+                "Annual 'What If This is the Last January 29th Ever?' Day",
+                "Every Time You Blink, You Miss a Different Timeline Day",
+                "End of the Month Existential Dread Festival"
+            ],
+            February: [
+                "The Day Your Future Self Hates You Day",
+                "National 'This Month Feels Like It’s Lasting a Decade' Day",
+                "Annual 'The Walls Are Closing In' Event",
+                "When Your Ex Still Thinks About You But You Wish They Didn’t Day",
+                "'I’m Watching You' Day (But Who’s Watching Them?)",
+                "National 'Everything Is Alive and It Hates You' Day",
+                "You’re Not Being Followed, But You Are Being Watched Day",
+                "Valentine’s Day for People Who Hate Their Exes Day",
+                "Your Reflection is Judging You Day",
+                "What If Everything You Know is a Lie Day",
+                "The 'What Happens if I Just Don’t Wake Up Tomorrow?' Anniversary",
+                "National 'The Stalker is a Lot Closer Than You Think' Day",
+                "The Voices Aren’t in Your Head, They’re in the Walls Day",
+                "Valentine’s Day for People Who Shouldn’t Date Day",
+                "Everything is a Warning and You Didn’t Listen Day",
+                "National 'Is This Still Real?' Awareness Day",
+                "The Day the Ground Should Have Swallowed You Up Day",
+                "'Oops, I Forgot That I’m Definitely Not Okay' Day",
+                "National 'Stop Looking Over Your Shoulder' Day",
+                "The Moment Your ‘Future Plans’ Become Absolute Bullshit Day",
+                "Your Old Friend is Now a Ghost and You’re Haunted Day",
+                "National 'The Lights Flickered and You Heard a Footstep' Day",
+                "Sinking Into the Void But in Real Time Day",
+                "National 'It’s Too Quiet' Day",
+                "Annual 'Just Let Me Fall Into Oblivion Already' Day",
+                "'Is This Really Happening or Did I Dream It?' Day",
+                "The Day You Realize That You’ve Always Been Alone Day",
+                "Your Dreams Are Trying to Tell You Something Day",
+                "Leap Day – The Day Time Actually Forgot You"
+            ],
+            March: [
+                "'We’re All Just Waiting for the End' Day",
+                "You’ve Lived This Day Before and You Will Again Day",
+                "Is This a Glitch or Am I the Glitch? Day",
+                "National 'I’m Going to Disappear' Day",
+                "Annual 'I’m 100% Sure Someone’s in the Closet' Event",
+                "You’ve Made an Enemy of Someone You’ll Never Meet Day",
+                "'That was Definitely Not Your Reflection' Day",
+                "Your Reality is Collapsing Slowly Day",
+                "'I’m Sorry, I Don’t Remember What Happened Yesterday' Day",
+                "National 'I Should Have Stayed in Bed' Day",
+                "Global 'Everyone Who Left Your Life Will Come Back in a Bad Way' Day",
+                "'The Walls Are Watching You' Memorial Day",
+                "Friday the 13th’s More Evil Cousin Day",
+                "The Day You Realized You’re Not Who You Thought You Were Day",
+                "Your Body is a Prison and You’ve Forgotten the Key Day",
+                "Someone Else is Living Your Life Day",
+                "St. Patrick’s Day, but It’s the Green that’s Going to Kill You",
+                "National 'Are You Sure This Isn’t Hell?' Day",
+                "Your Life is Being Programmed by Someone Else Day",
+                "'They’re Watching, Always Watching' Day",
+                "Everything’s Broken, But You’re Still Here Day",
+                "You’re Not Alone, But You Wish You Were Day",
+                "Everything Feels Like It’s the Last Day of Your Life Day",
+                "SoulCasketMerch.shop Anniversary Opening!",
+                "'That Noise Outside Wasn’t the Wind' Awareness Day",
+                "Your Shadow is Growing More Than You Realized Day",
+                "'Why Am I Here?' Crisis Day",
+                "Nothing You Do Will Matter Day",
+                "Time is Stretching and You Can’t Stop It Day",
+                "Your Mind is Trickling Away Like Sand Day",
+                "The Last Day of March Before Everything Unravels Day"
+            ],
+            April: [
+                "April Fool’s Day (Except Nobody’s Laughing)",
+                "'Why Did I Even Bother' Day",
+                "The Day Your Past Comes Knocking on Your Door Day",
+                "'Are We Sure Reality Isn’t Just a Dream?' Day",
+                "Your Brain Just Short-Circuited Day",
+                "'If You Can’t Hear It, You’re the One Being Watched' Day",
+                "You Are Definitely Being Lied To Day",
+                "Everything Feels Like a Mistake Day",
+                "Your Reflection’s Starting to Look Like a Stranger Day",
+                "The Day You Realize Nobody Remembers Your Name Day",
+                "'If You Stop and Think, You Might Just Lose It' Day",
+                "Everything is Getting Worse, But You’re Numb Day",
+                "Friday the 13th: Now It’s a Serial Killer",
+                "'The Dark’s Been Watching You' Day",
+                "The Voices Are Talking Again, Aren’t They? Day",
+                "Your Nightmare Feels More Like a Memory Day",
+                "National 'Everything Is A Conspiracy' Day",
+                "You’re Not Alone, But You Wish You Were Day",
+                "There’s Something in Your Walls Day",
+                "The Day You Wake Up and Forget What You Dreamt",
+                "'I’m Losing Time' Day",
+                "You’re Running from Something That’s Already Found You Day",
+                "The Day Reality Felt Like a Rip in Time",
+                "National 'Stop Looking at Me' Day",
+                "You Shouldn’t Have Said That, and You Know It Day",
+                "The Moment You Realize You Don’t Trust Yourself Day",
+                "Your Memory is Fading Faster Than You Realize Day",
+                "'Maybe You’re Just Not Supposed to Be Here' Day",
+                "There’s No Exit, But You’re Still Looking Day",
+                "Everything You Thought Was Real is Now a Lie Day"
+            ],
+            May: [
+                "The Day You Realize Your Dog Knows More Than You",
+                "'Time Isn’t Real and Neither Are You' Awareness Day",
+                "Did You Just Hear the Clock Stop? No? Me Neither Day",
+                "'You’re Not Alone, But You Should Be' Day",
+                "National 'Everything’s a Metaphor and You’re the Punchline' Day",
+                "Your Favorite Memories Are Starting to Fade Day",
+                "Is That Your Reflection or Something Else? Day",
+                "The Universe Forgot About You Day",
+                "'Am I in a Dream?' Panic Day",
+                "The Walls Are Talking, But They’re Saying Nothing Day",
+                "Your Dog’s Tongue is Too Long for Its Own Good Day",
+                "National 'I’m Pretty Sure the Floor Just Moved' Day",
+                "The Day You Stopped Trusting the Sky Above You",
+                "Dr Stroodle Toodles Birthday",
+                "You Can Hear the Silence and It’s Horrible Day",
+                "The Refrigerator Just Blinked at You Day",
+                "When You Realize You Can’t Remember How You Got Here Day",
+                "The Moon Looks Off and It Knows You’re Watching Day",
+                "You Left the House, But the House Didn’t Let You Leave Day",
+                "National 'Stop Tapping Your Foot, They Can Hear You' Day",
+                "Your Phone Isn’t Yours Anymore Day",
+                "The Walls Are Breathing Now Day",
+                "Is That Your Dog, or a Different One in Your House? Day",
+                "That Strange Shape in the Corner Just Moved Day",
+                "The Shadows Are Getting Too Close Day",
+                "What If You’re Actually Just a Glitch? Day",
+                "I Swear I Just Saw the Ceiling Blink at Me Day",
+                "You Swore You Locked That Door Day",
+                "Nothing Feels Real, Especially Your Own Skin Day",
+                "The TV is Speaking in Tongues Day",
+                "The Ground Beneath You is Softening Day"
+            ],
+            June: [
+                "National 'You’ve Never Really Seen Yourself' Day",
+                "You Swear You Heard Someone Call Your Name, But No One Was There Day",
+                "The Sky Looks Like It’s Been Painted on Wrong Day",
+                "You’re Walking, But Your Feet Aren’t Touching the Ground Day",
+                "The Clock is Running Backwards Day",
+                "Your Shadow Has a Life of Its Own Day",
+                "You’re Trapped in a Loop, and It’s Getting Tight Day",
+                "Everything is Too Quiet, and It’s Making You Nervous Day",
+                "You Thought You Heard the Telephone Ring, But You Don’t Own One Day",
+                "National 'Is This Still a Dream?' Breakdown Day",
+                "That Noise in the Walls is Getting Louder Day",
+                "Everything Around You Is Flickering and Stuttering Day",
+                "Friday the 13th? No, It’s Just a Day You’ll Never Forget",
+                "The Universe Forgot to Render Your Reflection Day",
+                "The Mirror Knows Something You Don’t Day",
+                "National 'What Happens If I Just Walk Away From This Reality?' Day",
+                "Is the Room Getting Smaller, or Is It Just You? Day",
+                "You Blinked, and the World Changed Day",
+                "Your Brain is Catching Up to You Day",
+                "The Ground Feels Like It’s Pulled Away Underneath You Day",
+                "You Swear That Window Just Moved By Itself Day",
+                "That Low-Pressure Feeling in Your Chest is Growing Day",
+                "You Haven’t Seen Your Dog in 3 Hours, and You’re Not Sure Where It Went Day",
+                "The Phone Rings, But There’s No One There Day",
+                "You’ve Been Walking in a Circle for Hours Day",
+                "Nothing Makes Sense, But It’s Making You Sense Something Day",
+                "The Air Feels Thicker Today, Don’t Breathe It In Day",
+                "You’re Not Sure What You’re Holding Anymore Day",
+                "The World is Folding In On Itself Day",
+                "Is This the Real You, Or the One in the Mirror? Day"
+            ],
+            July: [
+                "Happy Anniversary to the Day Your Mind Split Open",
+                "What If You’re a Dream Inside a Dream Inside a Dream? Day",
+                "That Shadow Outside Your Window is Growing Too Fast Day",
+                "America’s Birthday, But It’s Your Last Birthday Too Day",
+                "Your Bones Are Starting to Feel Like Glass Day",
+                "Your Reality is Tangling with Another’s Day",
+                "The Smell of Burning Paper is Too Strong Today Day",
+                "You Swear You Just Heard Someone Say Your Name, But You’re Alone Day",
+                "The Ground Beneath Your Feet is Becoming Unstable Day",
+                "National 'The House Feels Like It’s Shrinking' Day",
+                "The Sky Above You is Watching, And It’s Unblinking Day",
+                "You Found a Hole, and It’s Not Where You Left It Day",
+                "Friday the 13th’s Ugly Stepsister Day",
+                "The Ceiling Fan Has a Pulse Now Day",
+                "The Doors Are Breathing Again Day",
+                "National 'The Wind Is Laughing at You' Day",
+                "Your Reflection Just Smiled at You Without You Smiling Day",
+                "What If You’re Already Dead and Just Don’t Know It? Day",
+                "The Walls Are Watching You Eat Day",
+                "Is the Floor Moved, Or Are You Losing It Day?",
+                "The Shadows Are Scratching at the Door Day",
+                "Your Own Voice Feels Foreign To You Day",
+                "You Swear That Noise Was Coming From Inside Your Own Head Day",
+                "National 'The Floor is Moving' Day",
+                "The World is Watching You, But You’re Watching It Back Day",
+                "The Walls Are Starting to Melt Day",
+                "You’ve Walked Into a Memory, But It’s Someone Else’s Day",
+                "Your Reflection Keeps Talking to You, But You’re Not Talking Back Day",
+                "The Air Around You Is Thickening, and It’s Not Oxygen Day",
+                "You’re Not Sure If You’re Still You Day",
+                "End of the Month, End of the Line Day"
+            ],
+            August: [
+                "Everything is Humming, and It’s Coming From Inside You Day",
+                "You Swear Your Dog is Looking at You Like It Knows Something Day",
+                "The Room Feels Like It’s Shifting Around You Day",
+                "National 'You’ve Seen This Before, Haven’t You?' Day",
+                "The Universe Just Forgot About You Day",
+                "That Pressure in Your Chest is Growing Again Day",
+                "Your Reflection is a Stranger, and It Knows It Day",
+                "The Clock Is Ticking, But You Aren’t Sure It’s Real Day",
+                "Your Dog Just Spoke, But You Didn’t Hear What It Said Day",
+                "The Ground is Starting to Turn to Liquid Day",
+                "You Realize You’re Not Alone, But You Weren’t Before Day",
+                "The Walls Are Shifting, and It’s Not Just Your Mind Day",
+                "Friday the 13th: Everyone Else Has Already Forgotten You Day",
+                "Your Voice Is Coming From Somewhere Else Day",
+                "That Rattle in the Walls Is Getting Louder Day",
+                "What If Everything Is Just a Test You Didn’t Sign Up For? Day",
+                "The Light is Flickering, and You Don’t Want It to Stop Day",
+                "You Realize You Aren’t You, and You Aren’t Who You Think You Are Day",
+                "The World Is Scratching at Your Door Day",
+                "The Noise Outside Your Window Feels Like It’s Inside Your Head Day",
+                "You Open Your Mouth, But No Sound Comes Out Day",
+                "You’re Not Sure If You’re Still Breathing Day",
+                "The Room Just Grew in Size, and You Didn’t Notice Day",
+                "You Swear You Just Saw Someone That Wasn’t There Day",
+                "The Walls Are Watching You Watch Them Day",
+                "That Person You Thought You Knew? They’re Gone Now Day",
+                "That Shadow in the Corner Is Moving, But You Aren’t Sure Where It Went Day",
+                "The World Feels Like It’s Crumbling and You Can’t Stop It Day",
+                "Your Hands Are Starting to Feel Like They Don’t Belong to You Day",
+                "You Swear You Just Saw the Clock Freeze Day",
+                "Everything Is Spinning Now, But You’re Not Moving Day"
+            ],
+            September: [
+                "The Sky Doesn’t Look Like It Should Today Day",
+                "Your Shoes Aren’t Your Shoes Anymore Day",
+                "The Air Is Too Thick and You Can’t Breathe It In Day",
+                "That Thing in the Corner Is Watching You Day",
+                "You Think You Can Hear Your Thoughts Echoing Back at You Day",
+                "The Clock Is Ticking, But You Didn’t Start It Day",
+                "Your Shadow Just Blinked and You Don’t Know What to Do Day",
+                "You’re Pretty Sure the Walls Are Breathing In Time with Your Heartbeat Day",
+                "Your Dog Knows Something You Don’t, And It’s Smiling Day",
+                "The Floor Isn’t Where You Left It Day",
+                "That Smell You Can’t Identify Is Getting Stronger Day",
+                "You Blinked, and You’re Somewhere You’ve Never Been Day",
+                "Friday the 13th: Time Seems to Stretch and Snap Back Day",
+                "You Hear Laughter, But No One’s Here Day",
+                "Your Reflection Has Stopped Moving Day",
+                "You Swear You Just Felt a Hand on Your Shoulder, But There Was No One There Day",
+                "The Air Is Growing Heavier, Like It's Trying to Eat You Day",
+                "The Walls Just Got Too Close, and You Don’t Know What to Do Day",
+                "You Realize the Window is Watching You, Not the Other Way Around Day",
+                "The World Has Stopped Turning, But You’re Still Spinning Day",
+                "The Ground Feels Like It’s Turning Into Soft Clay Day",
+                "The Shadows Are Growing Teeth, and You Aren’t Sure How to Fight Them Day",
+                "You Keep Looking Over Your Shoulder, But No One’s Behind You Day",
+                "The Noise in the Walls is Growing Louder, and It’s Getting Angry Day",
+                "You Realize You’ve Been Trapped in This Moment Forever Day",
+                "The Ceiling Just Dropped by an Inch, And It’s Not the First Time Day",
+                "You Thought You Were Alone, But You Weren’t Day",
+                "The Floor Beneath You Is Shifting and It Won’t Stop Day",
+                "You Swear You Just Saw Your Own Face Looking Back at You Day",
+                "You Realize the Day Never Actually Ended Day"
+            ],
+            October: [
+                "The Clock Ticked, But You Didn’t Hear It Day",
+                "The Light in the Room Is Flickering, But You Swear It’s Too Quiet Day",
+                "That Footstep You Heard Wasn’t Yours Day",
+                "The Ceiling’s Too High Now, But You Didn’t Notice It Grow Day",
+                "You Realize You’ve Forgotten How to Speak Day",
+                "The Shadows Are Watching Your Every Move Day",
+                "You’re Sure That Person Wasn’t Standing There a Second Ago Day",
+                "The World Feels Like It’s Warping, But You Can’t Tell How Day",
+                "Your Dog Doesn’t Recognize You Anymore Day",
+                "Caden Smeadlyberries Birthday (my gay autistic son)",
+                "Friday the 13th: It Feels Like the End, But It’s Only Just Beginning Day",
+                "The Walls Are Talking in a Language You Don’t Know Day",
+                "The Silence Is Too Loud, and It’s Coming From Inside Your Head Day",
+                "Everything Feels Like It’s Melting, But You Can’t Find the Heat Day",
+                "You Just Realized You Haven’t Been Breathing for Hours Day",
+                "The Lights Are Flickering in a Way They Never Have Before Day",
+                "The World Outside Looks Fake, Like a Painting That’s Peeling Day",
+                "The House Is Now Its Own Entity, and You’re Not Sure If You’re Inside or Outside It Day",
+                "Something’s Wrong with the Moon, But You’re the Only One Who Sees It Day",
+                "The Ground Underneath Your Feet Feels Like It’s Giving In Day",
+                "You Realize the Person You’re Talking To Isn’t Who They Say They Are Day",
+                "You Blinked, And Everything Changed Day",
+                "Your Shadow Isn’t in the Same Place It Should Be Day",
+                "You Thought the Door Was Locked, But It’s Not Day",
+                "You Swear the Walls Are Smiling at You Day",
+                "The Sky Is Watching, and It Knows Your Secrets Day",
+                "The Floor Is Moving, But You’re Not Sure How Day",
+                "You Opened the Door, But It’s a Different Door Now Day",
+                "The Sky Is Leaking Something, But You Can’t Tell What Day",
+                "You Found a Hole in the Ground, and It’s Staring Back at You Day",
+                "Halloween: The Day Reality Starts Unraveling for Good Day"
+            ],
+            November: [
+                "The Ground Is Softening, But Your Feet Aren’t Moving Day",
+                "The Walls Are Watching, But You’re Watching Them Watch You Day",
+                "Your Dog Just Learned to Speak, and It’s Not Happy With You Day",
+                "The Shadows Are Lurking and Growing, But They Won’t Stop Following You Day",
+                "You Thought You Were Alone, But You Swear You Heard Breathing Day",
+                "The Sky Has Been Watching You for a Long Time, and It’s Tired of Waiting Day",
+                "The Floor Feels Like It’s About to Collapse, But You’re Already Gone Day",
+                "You Can Hear the House Thinking, and It’s Thinking of You Day",
+                "The Shadows Behind You Aren’t Your Own Anymore Day",
+                "You Realize You’ve Stopped Moving, But You Don’t Know Why Day",
+                "The Ground Is Soft and Wet, and You’re Not Sure Why Day",
+                "You Swear You Just Saw Your Own Reflection Smile Back at You Day",
+                "Friday the 13th: The Day the World Just Stops Caring About You Day",
+                "You Thought the Door Was Open, But It Was Never There Day",
+                "You Realize You Aren’t Where You Thought You Were, But You Don’t Know Where You Are Day",
+                "The Silence Is Too Thick to Breathe Through Day",
+                "You Swear You Can Hear Your Own Voice Coming From the Walls Day",
+                "That Face in the Window? It’s Not Yours Day",
+                "The Ground Feels Like It’s Rising, and You’re Being Pulled Down With It Day",
+                "The Sky Has Gone Dark, But You Swear It Was Just Light Day",
+                "You Can Hear the House Creaking, But It’s Not The Wind Day",
+                "The Noise Outside Your Window Is Getting Louder, But No One Else Seems to Hear It Day",
+                "Your Mind Is Starting to Separate from You, and You Can’t Tell Which is Real Day",
+                "You Realize the World Is Changing, But You Can’t Remember How It Was Before Day",
+                "The Doors Aren’t Opening Anymore Day",
+                "You Swear the Air Is Getting Thicker, and You Can’t Breathe Day",
+                "Your Dog Just Looked at You and Turned Away, and It Wasn’t Normal Day",
+                "The Sky Is Cracking, and You Can’t Tell What’s Behind It Day",
+                "You Thought You Were Alone, But You’re the Last One Here Day",
+                "You Realize You’ve Forgotten Who You Are, And It’s Too Late to Remember Day"
+            ],
+            December: [
+                "Everything Is Starting to Fold In on Itself Day",
+                "You Realize You’re Not Meant to Be Here Day",
+                "The Walls Have Stopped Moving, But You Can’t Tell If That’s Worse Day",
+                "That Shape You Saw Outside? It’s Inside Now Day",
+                "You Open Your Mouth to Speak, But No Sound Comes Out Day",
+                "The Ceiling is About to Fall, But You Can’t Tell Which Direction It’s Falling In Day",
+                "Your Reflection Is Watching You, and It Knows You’re Watching It Day",
+                "You Thought You Could Run, But The Ground Is Holding You Down Day",
+                "The Sky Is Staring Back, and It Knows Your Name Day",
+                "Everything You Thought You Knew Is Starting to Dissolve Day",
+                "You’ve Forgotten What You Were Doing, And It’s Too Late to Remember Day",
+                "The Air Feels Like It’s Crushing You, But You Can’t Move Anyway Day",
+                "Friday the 13th: The Day You Realize You’re Not Real Anymore Day",
+                "The Walls Are Smiling Now, And They’re Waiting For You to Smile Back Day",
+                "You Opened the Door, But It’s the Same Door You’ve Already Opened Day",
+                "You Just Realized You’ve Been Here for Days, But You Haven’t Moved Day",
+                "You Thought the Light Was On, But It’s Always Been Off Day",
+                "The Ceiling Is Spinning, But You’re Too Tired to Care Day",
+                "You Realize the Floor Is Moving, But You Can’t Feel It Anymore Day",
+                "The Ground Is Shaking, But You Can’t Feel It In Your Feet Day",
+                "The Lights Went Out, But You Swear You’re Still Seeing Them Day",
+                "You Thought You Were Alone, But You Swear You Just Heard Something Behind You Day",
+                "You’re Not Sure Who You Are, But You Can’t Stop Asking Day",
+                "The End of the World Looks Just Like Yesterday Day",
+                "Christmas: The Day the Present Is Now the Past Day",
+                "You Open Your Eyes, But You Aren’t Sure Which Ones They Are Day",
+                "The Sky Has Cracked, and You’re Looking Through It Day",
+                "You Thought You Could Hear a Voice, But Now It’s Your Own Day",
+                "The Ground Beneath You Is Melting, And You’re Already Gone Day",
+                "You Realize You’ve Been Waiting for Something, But You Don’t Remember What Day",
+                "New Year’s Eve: The Last Day, But It Feels Like the First Day Day"
+            ]
+        };
+
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const today = new Date();
+        const currentMonth = today.getMonth();
+        const currentDay = today.getDate();
+
+        const todayMonthName = monthNames[currentMonth];
+        const todayEvent = calendarData[todayMonthName][currentDay - 1];
+        document.getElementById('today-date').textContent = `${todayMonthName} ${currentDay}`;
+        document.getElementById('today-event').textContent = todayEvent;
+
+        monthNames.forEach((month, monthIndex) => {
+            const monthList = document.getElementById(`${month.toLowerCase()}-list`);
+            calendarData[month].forEach((event, dayIndex) => {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                dayDiv.innerHTML = `
+                    <h4>${month} ${dayIndex + 1}</h4>
+                    <p>${event}</p>
+                `;
+                monthList.appendChild(dayDiv);
+            });
+        });
+    </script>
+    <script src="assets/celebration/celebration.js"></script>
+</body>
+</html>

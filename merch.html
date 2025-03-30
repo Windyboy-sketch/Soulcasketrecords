@@ -181,7 +181,6 @@
             text-shadow: 0 0 5px #4b2e5a;
         }
 
-        /* New Styles for Featured Section */
         .featured-section {
             max-width: 1200px;
             margin: 40px auto 60px auto;
@@ -218,6 +217,48 @@
             50% { box-shadow: 0 0 15px #f0e6ff, 0 0 20px #ff4040; }
             100% { box-shadow: 0 0 5px #f0e6ff, 0 0 15px #ff4040; }
         }
+
+        /* Nefario Button Styles */
+        .nefario-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            font-family: 'Texturina', serif;
+            font-size: 1.5em;
+            color: #f0e6ff;
+            background: rgba(13, 13, 26, 0.9);
+            border: 2px solid #ff4040;
+            box-shadow: 0 0 10px #8b0000;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .nefario-button:hover {
+            background: #8b0000;
+            box-shadow: 0 0 20px #ff4040;
+            color: #f0e6ff;
+        }
+
+        /* Lobotomy Image Popup Styles */
+        .lobotomy-image {
+            position: fixed;
+            width: 200px;
+            height: auto;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            animation: fadePop 1s ease-out forwards;
+        }
+
+        @keyframes fadePop {
+            0% { opacity: 0; transform: scale(0.5); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
     </style>
 </head>
 <body>
@@ -241,7 +282,7 @@
 
         <!-- Featured Section -->
         <div class="featured-section">
-            <h2>Featured: New sick AF Arrivals!!!!</h2>
+            <h2>Featured: New Nargaroth Arrivals</h2>
             <div class="merch-grid">
                 <!-- AXCX T-Shirt -->
                 <div class="merch-card">
@@ -498,5 +539,40 @@
             </div>
         </div>
     </section>
+
+    <!-- Nefario Button -->
+    <button class="nefario-button" onclick="triggerNefario()">Nefario Button</button>
+
+    <script>
+        function triggerNefario() {
+            const lobotomyChance = Math.random();
+            const lobotomySound = new Audio('lobotomy.mp3'); // Replace with your lobotomy sound file
+            const normalSound = new Audio('normal.mp3');   // Replace with your normal sound file
+
+            if (lobotomyChance < 0.6) { // 60% chance for lobotomy effect
+                lobotomySound.play();
+
+                // Create lobotomy image
+                const img = document.createElement('img');
+                img.src = 'lobotomy-image.png'; // Replace with your meme image file
+                img.className = 'lobotomy-image';
+
+                // Random position on screen
+                const x = Math.random() * (window.innerWidth - 200); // 200px is image width
+                const y = Math.random() * (window.innerHeight - 200);
+                img.style.left = `${x}px`;
+                img.style.top = `${y}px`;
+
+                document.body.appendChild(img);
+
+                // Remove image after animation (1 second)
+                setTimeout(() => {
+                    img.remove();
+                }, 1000);
+            } else { // 40% chance for normal sound
+                normalSound.play();
+            }
+        }
+    </script>
 </body>
 </html>

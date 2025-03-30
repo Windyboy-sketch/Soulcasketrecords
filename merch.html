@@ -245,19 +245,24 @@
         /* Lobotomy Image Popup Styles */
         .lobotomy-image {
             position: fixed;
-            width: 200px;
-            height: auto;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Ensures the image fills the screen */
             z-index: 20;
             opacity: 0;
             pointer-events: none;
-            animation: fadePop 1s ease-out forwards;
+            animation: flashFade 1s ease-out forwards;
         }
 
-        @keyframes fadePop {
-            0% { opacity: 0; transform: scale(0.5); }
-            20% { opacity: 1; transform: scale(1); }
-            80% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.5); }
+        /* White Flash and Fade Animation */
+        @keyframes flashFade {
+            0% { opacity: 0; background: rgba(255, 255, 255, 0); }
+            10% { opacity: 1; background: rgba(255, 255, 255, 0.8); } /* White flash */
+            20% { opacity: 1; background: rgba(255, 255, 255, 0); }
+            80% { opacity: 1; background: rgba(255, 255, 255, 0); }
+            100% { opacity: 0; background: rgba(255, 255, 255, 0); }
         }
     </style>
 </head>
@@ -552,7 +557,7 @@
             const randomChance = Math.random(); // Generates a number between 0 and 1
             console.log("Random Chance:", randomChance); // Debug: Check the random value in console
 
-            if (randomChance <= 0.6) { // 60% chance for lobotomy
+            if (randomChance <= 0.3) { // 30% chance for lobotomy
                 console.log("Playing lobotomy sound"); // Debug: Confirm this triggers
                 lobotomySound.currentTime = 0; // Reset sound to start
                 lobotomySound.play().catch(error => console.error("Lobotomy sound error:", error));
@@ -562,21 +567,15 @@
                 img.src = 'lobotomy-image.png'; // Replace with your meme image file
                 img.className = 'lobotomy-image';
 
-                // Random position on screen
-                const x = Math.floor(Math.random() * (window.innerWidth - 200));
-                const y = Math.floor(Math.random() * (window.innerHeight - 200));
-                img.style.left = `${x}px`;
-                img.style.top = `${y}px`;
-
                 document.body.appendChild(img);
-                console.log("Image added at:", x, y); // Debug: Confirm image placement
+                console.log("Image added (full screen)"); // Debug: Confirm image placement
 
                 // Remove image after animation (1 second)
                 setTimeout(() => {
                     img.remove();
                     console.log("Image removed"); // Debug: Confirm removal
                 }, 1000);
-            } else { // 40% chance for normal laugh
+            } else { // 70% chance for normal laugh
                 console.log("Playing normal laugh"); // Debug: Confirm this triggers
                 normalSound.currentTime = 0; // Reset sound to start
                 normalSound.play().catch(error => console.error("Normal sound error:", error));

@@ -544,33 +544,42 @@
     <button class="nefario-button" onclick="triggerNefario()">Nefario Button</button>
 
     <script>
-        function triggerNefario() {
-            const lobotomyChance = Math.random();
-            const lobotomySound = new Audio('lobotomy.mp3'); // Replace with your lobotomy sound file
-            const normalSound = new Audio('normal.mp3');   // Replace with your normal sound file
+        // Preload audio to avoid delays
+        const lobotomySound = new Audio('lobotomy.mp3'); // Replace with your lobotomy sound file
+        const normalSound = new Audio('normal.mp3');     // Replace with your normal laugh sound file
 
-            if (lobotomyChance < 0.6) { // 60% chance for lobotomy effect
-                lobotomySound.play();
+        function triggerNefario() {
+            const randomChance = Math.random(); // Generates a number between 0 and 1
+            console.log("Random Chance:", randomChance); // Debug: Check the random value in console
+
+            if (randomChance <= 0.6) { // 60% chance for lobotomy
+                console.log("Playing lobotomy sound"); // Debug: Confirm this triggers
+                lobotomySound.currentTime = 0; // Reset sound to start
+                lobotomySound.play().catch(error => console.error("Lobotomy sound error:", error));
 
                 // Create lobotomy image
                 const img = document.createElement('img');
-                img.src = 'lobotomy-image.jpg'; // Replace with your meme image file
+                img.src = 'lobotomy-image.png'; // Replace with your meme image file
                 img.className = 'lobotomy-image';
 
                 // Random position on screen
-                const x = Math.random() * (window.innerWidth - 200); // 200px is image width
-                const y = Math.random() * (window.innerHeight - 200);
+                const x = Math.floor(Math.random() * (window.innerWidth - 200));
+                const y = Math.floor(Math.random() * (window.innerHeight - 200));
                 img.style.left = `${x}px`;
                 img.style.top = `${y}px`;
 
                 document.body.appendChild(img);
+                console.log("Image added at:", x, y); // Debug: Confirm image placement
 
                 // Remove image after animation (1 second)
                 setTimeout(() => {
                     img.remove();
+                    console.log("Image removed"); // Debug: Confirm removal
                 }, 1000);
-            } else { // 40% chance for normal sound
-                normalSound.play();
+            } else { // 40% chance for normal laugh
+                console.log("Playing normal laugh"); // Debug: Confirm this triggers
+                normalSound.currentTime = 0; // Reset sound to start
+                normalSound.play().catch(error => console.error("Normal sound error:", error));
             }
         }
     </script>
